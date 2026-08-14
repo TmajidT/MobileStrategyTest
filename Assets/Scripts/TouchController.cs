@@ -3,8 +3,6 @@ using UnityEngine.InputSystem;
 
 public class TouchController : MonoBehaviour
 {
-    [SerializeField] private GameObject cubePrefab;
-
     void Update()
     {
         // Touch
@@ -34,7 +32,12 @@ public class TouchController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Instantiate(cubePrefab, hit.point, Quaternion.identity);
+            Territory territory = hit.collider.GetComponent<Territory>();
+
+            if (territory != null)
+            {
+                territory.Select();
+            }
         }
     }
 }
